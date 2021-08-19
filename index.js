@@ -42,7 +42,18 @@ class Airplane {
 */
 
 class Person {
-  
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [] //empty stomach array
+  }
+  //methods
+  eat(edible){
+    if(this.stomach.length < 10){
+      this.stomach.push(edible);
+    }
+  }
+
 }
 
 /*
@@ -76,7 +87,14 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-  
+  constructor({name, age, location}){
+    this.name = name,
+    this.age = age,
+    this.location = location
+  }
+  speak(){
+    return 
+  }
 }
 
 /*
@@ -93,6 +111,13 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
+
+//passing in the
+
+/* if you have a second method on a class, add it underneath the class __ extends __{
+
+} */
+
 class Instructor {
 
 }
