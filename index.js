@@ -48,9 +48,9 @@ class Person {
     this.stomach = [] //empty stomach array
   }
   //methods
-  eat(edible){
+  eat(someFood){
     if(this.stomach.length < 10){
-      this.stomach.push(edible);
+      this.stomach.push(someFood);
     }
   }
   poop(){
@@ -78,7 +78,22 @@ class Person {
 */
 
 class Car {
-  
+  constructor (model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons){
+    this.tank = this.tank + gallons;
+  }
+  drive(distance){
+    this.odometer = this.odometer + distance;
+    this.tank = this.tank - (this.gallons * this.milesPerGallon);
+    if(this.tank === 0){
+      return `i ran out of gas after ${this.odometer} miles`
+    }
+  }
 }
 
 /*
@@ -94,10 +109,10 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-  constructor({name, age, location}){
-    this.name = name;
-    this.age = age;
-    this.location = location;
+  constructor(attributes){
+    this.name = attributes.name;
+    this.age = attributes.age;
+    this.location = attributes.location;
   }
   speak(){
     return `Hello my name is ${this.name}, I am from ${this.location}`
@@ -126,21 +141,19 @@ class Lambdasian {
 } */
 
 class Instructor extends Lambdasian {
-  constructor (specialty, favLanguage, catchPhrase/* idk what to put here */){  //what do you do with argument initializatoin versus the other initialization ones...? objects?
-    super(name, age, location/* --- are these things the ones that are from the parent???e... i think?? do they need the curly braces*/)
-    this.specialty = 'redux'; // is this supposed to be a colon???
-    this.favLanguage = 'JS';
-    this.catchPhrase = 'dont forget the homies';
+  constructor (attributes)/* idk what to put here */{  //what do you do with argument initializatoin versus the other initialization ones...? objects?
+    super(attributes);/* --- are these things the ones that are from the parent???e... i think?? do they need the curly braces*/
+    this.specialty = attributes.specialty; // is this supposed to be a colon???
+    this.favLanguage = attributes.favLanguage;
+    this.catchPhrase = attributes.catchPhrase;
   }
   demo(subject){
-    return `Today we are learning about ${subject}`
+    return `Today we are learning about ${subject}`;
   }
-  grade(student){
-    return `${student.name} receives a perfect score on {subject}`
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`;
 
   }
-
-
 }
 /*
   TASK 5
@@ -153,16 +166,28 @@ class Instructor extends Lambdasian {
     - The constructor calls the parent constructor passing to it what it needs.
     - The constructor should also initialize `previousBackground`, `className` and `favSubjects` properties on the instance.
     - Student instances have the following methods:
-        + `listSubjects` a method that returns all of the student's favSubjects in a single string: `Loving HTML, CSS, JS!`.
-        + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
+        + `listSubjects` a method that RETURNS all of the student's favSubjects in a single string: `Loving HTML, CSS, JS!`.
+        + `PRAssignment` a method that RECIEVES a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
 //siblinf with the instructor
-class Student extends Lambdasian {
-  constructor (previousBackground){
 
+class Student extends Lambdasian {
+  constructor (attributes){
+    super(attributes);
+    this.previousBackground = attributes.previousBackground;
+    this.className = attributes.className;
+    this.favSubjects = attributes.favSubjects;
   }
-   
+  listSubjects(){
+    return `Loving ${this.favSubjects}`;
+  }
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
 }
 
 /*
@@ -179,8 +204,17 @@ class Student extends Lambdasian {
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
 class ProjectManager extends Instructor {
-
-   
+   constructor (attributes){
+     super(attributes);
+     this.gradClassName = attributes.gradClassName;
+     this.favInstructor = attributes.favInstructor;
+   }
+   standUp(channel){
+    `${this.name} announces to ${channel}, @${channel} standy times!`;
+   }
+   debugsCode(student, subject){
+    `${this.name} debugs ${student.name}'s code on ${subject}`
+   }
 }
 /*
   STRETCH PROBLEM (no tests!)
