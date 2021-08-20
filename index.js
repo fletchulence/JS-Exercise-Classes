@@ -88,13 +88,18 @@ class Car {
     this.tank = this.tank + gallons;
   }
   drive(distance){
-    this.odometer = this.odometer + distance;
-    this.tank = this.tank - (this.gallons * this.milesPerGallon);
-    if(this.tank === 0){
-      return `i ran out of gas after ${this.odometer} miles`
+    if(distance > this.tank * this.milesPerGallon){
+      this.odometer = this.odometer + this.tank * this.milesPerGallon;
+      this.tank = 0;
+      return `i ran out of gas after ${this.odometer} miles`;
+    } else {
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - distance / this.milesPerGallon;
     }
+    return this.odometer;
   }
 }
+
 
 /*
   TASK 3
@@ -115,7 +120,7 @@ class Lambdasian {
     this.location = attributes.location;
   }
   speak(){
-    return `Hello my name is ${this.name}, I am from ${this.location}`
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
   }
 }
 
@@ -152,7 +157,6 @@ class Instructor extends Lambdasian {
   }
   grade(student, subject){
     return `${student.name} receives a perfect score on ${subject}`;
-
   }
 }
 /*
@@ -210,10 +214,10 @@ class ProjectManager extends Instructor {
      this.favInstructor = attributes.favInstructor;
    }
    standUp(channel){
-    `${this.name} announces to ${channel}, @${channel} standy times!`;
+    return `${this.name} announces to ${channel}, @${channel} standy times!`;
    }
    debugsCode(student, subject){
-    `${this.name} debugs ${student.name}'s code on ${subject}`
+    return `${this.name} debugs ${student.name}'s code on ${subject}`
    }
 }
 /*
